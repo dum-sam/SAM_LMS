@@ -134,24 +134,3 @@ class UserLearningPath(models.Model):
 
     def __str__(self):
         return f"{self.user} - {self.path}"
-
-class UserLearningPath(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='learning_paths')
-    path = models.ForeignKey(LearningPath, on_delete=models.CASCADE)
-    started_at = models.DateTimeField(auto_now_add=True)
-    completed_at = models.DateTimeField(null=True, blank=True)
-    
-    @property
-    def progress(self):
-        total_courses = self.path.courses.count()
-        if total_courses == 0:
-            return 0
-        completed_courses = 0
-        for course in self.path.courses.all():
-            # Check if user has a certificate or 100% progress
-            if Enrollment.objects.filter(student=self.user, course=course, progress=100).exists():
-                completed_courses += 1
-        return int((completed_courses / total_courses) * 100)
-
-    def __str__(self):
-        return f"{self.user} - {self.path}"

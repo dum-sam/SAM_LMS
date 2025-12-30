@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Course, Module, Lesson, Enrollment, Quiz, Question, UserQuizAttempt
 from .models import Course, Module, Lesson, Enrollment, Quiz, Question, UserQuizAttempt, Certificate
 from .forms import CourseForm, ModuleForm, LessonForm, QuizForm, QuestionForm
 from django.db.models import Count
